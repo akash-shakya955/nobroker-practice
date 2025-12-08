@@ -1,19 +1,21 @@
-
-
-// server.js
 import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+dotenv.config();
 
 const app = express();
-
-// JSON body samajhne ke liye
 app.use(express.json());
 
-// Test route
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected Successfully!"))
+  .catch(err => console.log("MongoDB Error:", err));
+
 app.get("/", (req, res) => {
-  res.send("<h1>Bhai! Backend chal gaya — NoBroker Practice Start! </h1>");
+  res.send("<h1>Bhai! Backend + MongoDB dono live hain — Akash OP!</h1>");
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server chal raha hai → http://localhost:${PORT}`);
 });
